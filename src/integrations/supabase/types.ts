@@ -14,16 +14,277 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      companies: {
+        Row: {
+          budget_cents: number
+          celebrate_anniversary: boolean
+          celebrate_birthday: boolean
+          celebrate_name_day: boolean
+          celebrate_new_hire: boolean
+          city: string | null
+          created_at: string
+          delivery_window: string
+          holiday_shift: Database["public"]["Enums"]["holiday_shift"]
+          id: string
+          invite_token: string
+          locale: string
+          logo_url: string | null
+          name: string
+          onboarded: boolean
+          trial_ends_at: string
+        }
+        Insert: {
+          budget_cents?: number
+          celebrate_anniversary?: boolean
+          celebrate_birthday?: boolean
+          celebrate_name_day?: boolean
+          celebrate_new_hire?: boolean
+          city?: string | null
+          created_at?: string
+          delivery_window?: string
+          holiday_shift?: Database["public"]["Enums"]["holiday_shift"]
+          id?: string
+          invite_token?: string
+          locale?: string
+          logo_url?: string | null
+          name: string
+          onboarded?: boolean
+          trial_ends_at?: string
+        }
+        Update: {
+          budget_cents?: number
+          celebrate_anniversary?: boolean
+          celebrate_birthday?: boolean
+          celebrate_name_day?: boolean
+          celebrate_new_hire?: boolean
+          city?: string | null
+          created_at?: string
+          delivery_window?: string
+          holiday_shift?: Database["public"]["Enums"]["holiday_shift"]
+          id?: string
+          invite_token?: string
+          locale?: string
+          logo_url?: string | null
+          name?: string
+          onboarded?: boolean
+          trial_ends_at?: string
+        }
+        Relationships: []
+      }
+      employee_profiles: {
+        Row: {
+          alt_treat: string | null
+          birth_date: string | null
+          cake_flavour: string | null
+          celebration_style: Database["public"]["Enums"]["celebration_style"]
+          company_id: string
+          created_at: string
+          dietary: string[]
+          dietary_notes: string | null
+          email: string | null
+          first_name: string
+          hide_birth_year: boolean
+          home_address: string | null
+          id: string
+          is_remote: boolean
+          last_name: string | null
+          name_day_day: number | null
+          name_day_month: number | null
+          office_id: string | null
+          profile_complete: boolean
+          start_date: string | null
+          team: string | null
+          user_id: string | null
+        }
+        Insert: {
+          alt_treat?: string | null
+          birth_date?: string | null
+          cake_flavour?: string | null
+          celebration_style?: Database["public"]["Enums"]["celebration_style"]
+          company_id: string
+          created_at?: string
+          dietary?: string[]
+          dietary_notes?: string | null
+          email?: string | null
+          first_name: string
+          hide_birth_year?: boolean
+          home_address?: string | null
+          id?: string
+          is_remote?: boolean
+          last_name?: string | null
+          name_day_day?: number | null
+          name_day_month?: number | null
+          office_id?: string | null
+          profile_complete?: boolean
+          start_date?: string | null
+          team?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          alt_treat?: string | null
+          birth_date?: string | null
+          cake_flavour?: string | null
+          celebration_style?: Database["public"]["Enums"]["celebration_style"]
+          company_id?: string
+          created_at?: string
+          dietary?: string[]
+          dietary_notes?: string | null
+          email?: string | null
+          first_name?: string
+          hide_birth_year?: boolean
+          home_address?: string | null
+          id?: string
+          is_remote?: boolean
+          last_name?: string | null
+          name_day_day?: number | null
+          name_day_month?: number | null
+          office_id?: string | null
+          profile_complete?: boolean
+          start_date?: string | null
+          team?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_profiles_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_profiles_office_id_fkey"
+            columns: ["office_id"]
+            isOneToOne: false
+            referencedRelation: "offices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      name_days: {
+        Row: {
+          day: number
+          id: string
+          month: number
+          name: string
+        }
+        Insert: {
+          day: number
+          id?: string
+          month: number
+          name: string
+        }
+        Update: {
+          day?: number
+          id?: string
+          month?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      offices: {
+        Row: {
+          address: string
+          city: string | null
+          company_id: string
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          address: string
+          city?: string | null
+          company_id: string
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          address?: string
+          city?: string | null
+          company_id?: string
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "offices_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          company_id: string | null
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      current_company_id: { Args: never; Returns: string }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "super_admin" | "company_admin" | "employee" | "partner"
+      celebration_style: "loud" | "small" | "quiet"
+      holiday_shift: "friday_before" | "monday_after"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +411,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["super_admin", "company_admin", "employee", "partner"],
+      celebration_style: ["loud", "small", "quiet"],
+      holiday_shift: ["friday_before", "monday_after"],
+    },
   },
 } as const
